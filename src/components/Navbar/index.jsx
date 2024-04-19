@@ -14,8 +14,8 @@ export default function Navbar() {
 
   return (
     <div className="mt-8 font-nunito_sans">
-      <div>
-        <h1 className="text-3xl font-normal">Energy Dashboard</h1>
+      <div className="flex items-center">
+        <h1 className="text-3xl font-normal mr-2">Energy Dashboard</h1>
       </div>
       <div className="flex md:flex-row font-light flex-col justify-between items-start mt-6">
         <ul className="flex justify-between w-80 bg-color-white bg-opacity-15 py-1.5 rounded-3xl items-center text-sm">

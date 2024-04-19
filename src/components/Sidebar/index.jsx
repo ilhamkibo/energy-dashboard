@@ -5,6 +5,7 @@ import { FiAlignJustify, FiGrid, FiFile, FiAward } from "react-icons/fi";
 import { FaLightbulb, FaDoorOpen } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import CollectionLink from "./CollectionLink";
+import ConnectionStatus from "../Mqtt/ConnectionStatus";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -76,6 +77,8 @@ export default function Sidebar() {
           />
         </ul>
       </nav>
+      <hr className="mt-2 mb-4" />
+      <ConnectionStatus />
     </aside>
   );
 }
