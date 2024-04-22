@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CollectionLink({ Icon, link, title, pathname }) {
   return (
     <li
@@ -8,7 +10,7 @@ export default function CollectionLink({ Icon, link, title, pathname }) {
       }`}
     >
       {Icon && <Icon className="mr-4 ml-2" size={25} />}
-      <a href={link}>{title}</a>
+      <Link href={link}>{title}</Link>
     </li>
   );
 }

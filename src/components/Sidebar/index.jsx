@@ -5,17 +5,19 @@ import { FiAlignJustify, FiGrid, FiFile, FiAward } from "react-icons/fi";
 import { FaLightbulb, FaDoorOpen } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import CollectionLink from "./CollectionLink";
-import ConnectionStatus from "../Mqtt/ConnectionStatus";
+import HookMqtt from "../Mqtt";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const [showCollectionLinks, setShowCollectionLinks] = useState(false);
+  const [payloading, setPayloading] = useState("");
+  console.log("🚀 ~ Sidebar ~ payloading:", payloading);
   const toggleCollectionLinks = () => {
     setShowCollectionLinks(!showCollectionLinks);
   };
 
   return (
-    <aside className="bg-color-primary md:sticky md:top-0 text-color-white w-full md:w-60 p-4 overflow-y-auto md:h-screen">
+    <aside className="bg-color-primary md:sticky md:top-0 text-color-white w-full md:w-72 p-4 overflow-y-auto md:h-screen">
       <div className="flex md:flex-col md:pt-5 justify-between items-center">
         <div className="flex flex-row gap-2 md:flex-col justify-center items-center">
           <div className="text-center">
@@ -78,7 +80,7 @@ export default function Sidebar() {
         </ul>
       </nav>
       <hr className="mt-2 mb-4" />
-      <ConnectionStatus />
+      <HookMqtt pathname={pathname} jamput={setPayloading} />
     </aside>
   );
 }

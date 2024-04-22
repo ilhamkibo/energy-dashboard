@@ -1,14 +1,11 @@
-import CustomCard from "@/components/Card";
-import { BarChart } from "@/components/Chart/BarChart";
-import { DonutChart } from "@/components/Chart/DonutChart";
-import { LineChart } from "@/components/Chart/LineChart";
-
+import HookMqtt from "@/components/Mqtt";
 export default function Home() {
   return (
-    <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-3 grid-cols-1 mt-2 md:mt-9 font-nunito_sans">
-      <CustomCard title="aeng aeng" Chart={DonutChart} />
-      <CustomCard title="aeng aeng" Chart={LineChart} />
-      <CustomCard title="aeng aeng" Chart={BarChart} />
+    // <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-3 grid-cols-1 mt-2 pb-4 md:mt-9 font-nunito_sans">
+    //   <Dasboard />
+    // </div>
+    <div className="flex flex-col mt-2 pb-4 md:mt-9 font-nunito_sans">
+      <HookMqtt renders={true} />
     </div>
   );
 }
