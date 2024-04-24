@@ -1,7 +1,6 @@
 import { nunito_sans } from "@/utils/font";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
-import Navbar from "@/components/Navbar";
 
 export const metadata = {
   title: "Create Next App",
@@ -14,10 +13,7 @@ export default function RootLayout({ children }) {
       <body className={nunito_sans}>
         <div className="flex flex-col md:flex-row">
           <Sidebar />
-          <div className="flex-1 px-4 md:px-6 min-h-screen bg-gradient-to-tr from-color-bgPrime to-color-bgSecond">
-            <Navbar />
-            {children}
-          </div>
+          {children}
         </div>
       </body>
     </html>

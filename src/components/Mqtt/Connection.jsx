@@ -27,7 +27,7 @@ const Connection = ({ connect, disconnect, connectBtn, pathname }) => {
           backgroundColor: connectBtn == "Connected" ? "#00FF00" : "#FF0000",
         }}
       ></div>
-      <span className="text-sm">{connectBtn}</span>
+      <span className="text-sm">MQTT {connectBtn}</span>
     </div>
   );
 };

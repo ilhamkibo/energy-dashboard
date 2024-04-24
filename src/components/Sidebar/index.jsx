@@ -11,7 +11,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   const [showCollectionLinks, setShowCollectionLinks] = useState(false);
   const [payloading, setPayloading] = useState("");
-  console.log("🚀 ~ Sidebar ~ payloading:", payloading);
+
   const toggleCollectionLinks = () => {
     setShowCollectionLinks(!showCollectionLinks);
   };
@@ -80,7 +80,7 @@ export default function Sidebar() {
         </ul>
       </nav>
       <hr className="mt-2 mb-4" />
-      <HookMqtt pathname={pathname} jamput={setPayloading} />
+      <HookMqtt pathname={pathname} />
     </aside>
   );
 }
