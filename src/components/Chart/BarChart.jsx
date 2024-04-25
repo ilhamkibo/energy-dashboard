@@ -31,6 +31,7 @@ export const options = {
       text: "Chart.js Bar Chart",
     },
   },
+  maintainAspectRatio: false,
 };
 
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
@@ -51,6 +52,73 @@ export const data = {
   ],
 };
 
-export function BarChart() {
-  return <Bar options={options} data={data} />;
+export function BarChart({ height, payload }) {
+  let newData;
+
+  if (!payload || !payload.data) {
+    // Handle case where payload or payload.data is undefined
+    return <Bar options={options} height={height} data={data} />;
+  }
+
+  // Pastikan payload memiliki data yang dibutuhkan
+
+  if (payload.label[0] == "Volt 1" || payload.label[0] == "Current 1") {
+    // Ekstrak tanggal dan nilai volt rata-rata dari payload
+    const labels = payload.data.map((entry) => entry.timestamp); // Ambil tanggal sebagai label
+    const dataset1Data = payload.data.map((entry) => entry.value1); // Ambil nilai avg_volt1 untuk dataset 1
+    const dataset2Data = payload.data.map((entry) => entry.value2); // Ambil nilai avg_volt2 untuk dataset 2
+    const dataset3Data = payload.data.map((entry) => entry.value3); // Ambil nilai avg_volt3 untuk dataset 3
+
+    // Buat data baru berdasarkan data yang ada di payload
+    newData = {
+      labels: labels,
+      datasets: [
+        {
+          label: payload.label[0],
+          data: dataset1Data,
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
+          pointRadius: 1,
+          barThickness: 50,
+        },
+        {
+          label: payload.label[1],
+          data: dataset2Data,
+          borderColor: "rgb(53, 162, 235)",
+          backgroundColor: "rgba(53, 162, 235, 0.5)",
+          pointRadius: 1,
+          barThickness: 50,
+        },
+        {
+          label: payload.label[2],
+          data: dataset3Data,
+          borderColor: "rgb(75, 192, 192)",
+          backgroundColor: "rgba(75, 192, 192, 0.5)",
+          pointRadius: 1,
+          barThickness: 50,
+        },
+      ],
+    };
+  } else {
+    // Ekstrak tanggal dan nilai volt rata-rata dari payload
+    const labels = payload.data.map((entry) => entry.timestamp); // Ambil tanggal sebagai label
+    const dataset1Data = payload.data.map((entry) => entry.value); // Ambil nilai avg_volt1 untuk dataset 1
+
+    // Buat data baru berdasarkan data yang ada di payload
+    newData = {
+      labels: labels,
+      datasets: [
+        {
+          label: payload.label[0],
+          data: dataset1Data,
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
+          pointRadius: 1,
+          barThickness: 50,
+        },
+      ],
+    };
+  }
+
+  return <Bar options={options} height={height} data={newData} />;
 }

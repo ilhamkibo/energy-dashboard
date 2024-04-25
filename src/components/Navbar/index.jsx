@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import TabButton from "./TabButton";
 import { usePathname } from "next/navigation";
 
-export default function Navbar({ fetchApi }) {
+export default function Navbar({ fetchApi, option = "volt", congo }) {
   const [activeTab, setActiveTab] = useState("today");
   const [currentTime, setCurrentTime] = useState(new Date());
   const currentMonth = currentTime.toLocaleString("default", { month: "long" });
@@ -12,9 +12,6 @@ export default function Navbar({ fetchApi }) {
 
   // Update waktu setiap detik
   useEffect(() => {
-    if (fetchApi) {
-      fetchApi("log_value", "");
-    }
     const interval = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
@@ -26,8 +23,16 @@ export default function Navbar({ fetchApi }) {
 
   const handleClick = (tab) => {
     setActiveTab(tab);
-    fetchApi("log_value", `date=${tab}`);
+    if (congo) {
+      congo(tab);
+    }
   };
+
+  useEffect(() => {
+    if (fetchApi) {
+      fetchApi(option, `date=${activeTab}`);
+    }
+  }, [activeTab, option]);
 
   return (
     <div className="mt-8 font-nunito_sans">

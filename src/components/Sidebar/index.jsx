@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { FiAlignJustify, FiGrid, FiFile, FiAward } from "react-icons/fi";
-import { FaLightbulb, FaDoorOpen } from "react-icons/fa";
+import { FaLightbulb, FaMoneyBill } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import CollectionLink from "./CollectionLink";
 import HookMqtt from "../Mqtt";
@@ -17,7 +17,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="bg-color-primary md:sticky md:top-0 text-color-white w-full md:w-72 p-4 overflow-y-auto md:h-screen">
+    <aside className="bg-color-primary md:sticky md:top-0 text-color-white w-full md:w-60 xl:72 p-4 overflow-y-auto md:h-screen">
       <div className="flex md:flex-col md:pt-5 justify-between items-center">
         <div className="flex flex-row gap-2 md:flex-col justify-center items-center">
           <div className="text-center">
@@ -61,21 +61,15 @@ export default function Sidebar() {
           />
           <CollectionLink
             pathname={pathname}
+            title="Cost"
+            link="/cost"
+            Icon={FaMoneyBill}
+          />
+          <CollectionLink
+            pathname={pathname}
             title="Appliances"
             link="/appliances"
             Icon={FaLightbulb}
-          />
-          <CollectionLink
-            pathname={pathname}
-            title="Rooms"
-            link="/rooms"
-            Icon={FaDoorOpen}
-          />
-          <CollectionLink
-            pathname={pathname}
-            title="Emissions"
-            link="/emissions"
-            Icon={FiAward}
           />
         </ul>
       </nav>
