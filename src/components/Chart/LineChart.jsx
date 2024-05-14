@@ -29,7 +29,7 @@ export const options = {
       position: "top",
     },
     title: {
-      display: true,
+      display: false,
       text: "Chart.js Line Chart",
     },
   },
@@ -62,7 +62,6 @@ export function LineChart({ height, payload }) {
 
   // Pastikan payload memiliki data yang dibutuhkan
   let newData;
-  console.log("payload: ", payload);
   if (payload.label[0] == "Volt 1" || payload.label[0] == "Current 1") {
     // Ekstrak tanggal dan nilai volt rata-rata dari payload
     const labels = payload.data.map((entry) => entry.timestamp); // Ambil tanggal sebagai label
@@ -77,8 +76,8 @@ export function LineChart({ height, payload }) {
         {
           label: payload.label[0],
           data: dataset1Data,
-          borderColor: "rgb(255, 99, 132)",
-          backgroundColor: "rgba(255, 99, 132, 0.5)",
+          borderColor: "rgb(72, 223, 186)",
+          backgroundColor: "rgba(72, 223, 186, 0.5)",
           pointRadius: 1,
         },
         {
@@ -91,8 +90,8 @@ export function LineChart({ height, payload }) {
         {
           label: payload.label[2],
           data: dataset3Data,
-          borderColor: "rgb(75, 192, 192)",
-          backgroundColor: "rgba(75, 192, 192, 0.5)",
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
           pointRadius: 1,
         },
       ],

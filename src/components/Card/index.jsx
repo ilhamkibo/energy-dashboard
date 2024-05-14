@@ -17,17 +17,19 @@ const CustomCard = ({
       {payload && payload.summary && (
         <div className="p-4 flex flex-row justify-around">
           <div className="flex flex-col justify-center items-center">
-            <div className="text-lg font-light">Used Watt Total:</div>
+            <div className="text-lg font-light">Total:</div>
             <div className="text-2xl font-bold">
               {Number.parseFloat(payload.summary.total_kW).toFixed(3)}
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center">
-            <div className="text-lg font-light">Average Watt:</div>
-            <div className="text-2xl font-bold">
-              {Number.parseFloat(payload.summary.avg_kW).toFixed(3)}
+          {payload.summary.avg_kW && (
+            <div className="flex flex-col justify-center items-center">
+              <div className="text-lg font-light">Average:</div>
+              <div className="text-2xl font-bold">
+                {Number.parseFloat(payload.summary.avg_kW).toFixed(3)}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
       <div className="pl-4 py-2 text-center">

@@ -3,7 +3,6 @@ import CustomCard from "@/components/Card";
 import { BarChart } from "@/components/Chart/BarChart";
 import { LineChart } from "@/components/Chart/LineChart";
 import Navbar from "@/components/Navbar";
-import TabButton from "@/components/Navbar/TabButton";
 import { getLogResponse } from "@/libs/api-libs";
 import React, { useState, useEffect } from "react";
 
@@ -75,7 +74,7 @@ export default function Home() {
             description={`${activeTab.toUpperCase()} - ${activeTab2.toUpperCase()}`}
           />
         )}
-        <div className="grid lg:grid-cols-2 gap-3 grid-cols-1 font-nunito_sans"></div>
+        {/* <div className="grid lg:grid-cols-2 gap-3 grid-cols-1 font-nunito_sans"></div> */}
       </div>
     </div>
   );

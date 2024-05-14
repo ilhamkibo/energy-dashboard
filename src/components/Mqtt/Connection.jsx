@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 const Connection = ({ connect, disconnect, connectBtn, pathname }) => {
   useEffect(() => {
-    const url = `ws://103.181.142.170:8083/mqtt`;
+    const url = `ws://broker.emqx.io:8083/mqtt`;
     const options = {
       clientId:
         "emqx_react_" +

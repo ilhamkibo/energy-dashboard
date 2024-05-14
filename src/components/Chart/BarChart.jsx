@@ -10,6 +10,8 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -20,20 +22,6 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "Chart.js Bar Chart",
-    },
-  },
-  maintainAspectRatio: false,
-};
-
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
 export const data = {
@@ -42,17 +30,59 @@ export const data = {
     {
       label: "Dataset 1",
       data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      backgroundColor: "rgba(72, 223, 186, 1)",
     },
     {
       label: "Dataset 2",
       data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
+      backgroundColor: "rgba(53, 162, 235, 1)",
     },
   ],
 };
 
 export function BarChart({ height, payload }) {
+  const pathname = usePathname();
+  let options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: false,
+        text: "Chart.js Bar Chart",
+      },
+    },
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        grid: {
+          display: false,
+          offset: true,
+        },
+      },
+      y: {
+        border: {
+          dash: [4, 10],
+        },
+        grid: {
+          color: "#fff",
+          offset: true,
+        },
+        ticks: {
+          // Use a callback function to customize the tick values
+          callback: function (value) {
+            if (pathname === "/cost") {
+              return `Rp. ${value}`; // Add "Rp." to the value
+            } else {
+              return value; // Add "Rp." to the value
+            }
+          },
+        },
+      },
+    },
+  };
+
   let newData;
 
   if (!payload || !payload.data) {
@@ -76,8 +106,8 @@ export function BarChart({ height, payload }) {
         {
           label: payload.label[0],
           data: dataset1Data,
-          borderColor: "rgb(255, 99, 132)",
-          backgroundColor: "rgba(255, 99, 132, 0.5)",
+          borderColor: "rgb(72, 223, 186)",
+          backgroundColor: "rgba(72, 223, 186, 0.8)",
           pointRadius: 1,
           barThickness: 50,
         },
@@ -85,15 +115,15 @@ export function BarChart({ height, payload }) {
           label: payload.label[1],
           data: dataset2Data,
           borderColor: "rgb(53, 162, 235)",
-          backgroundColor: "rgba(53, 162, 235, 0.5)",
+          backgroundColor: "rgba(53, 162, 235, 0.8)",
           pointRadius: 1,
           barThickness: 50,
         },
         {
           label: payload.label[2],
           data: dataset3Data,
-          borderColor: "rgb(75, 192, 192)",
-          backgroundColor: "rgba(75, 192, 192, 0.5)",
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.8)",
           pointRadius: 1,
           barThickness: 50,
         },
@@ -111,8 +141,8 @@ export function BarChart({ height, payload }) {
         {
           label: payload.label[0],
           data: dataset1Data,
-          borderColor: "rgb(255, 99, 132)",
-          backgroundColor: "rgba(255, 99, 132, 0.5)",
+          borderColor: "rgb(72, 223, 186)",
+          backgroundColor: "rgba(72, 223, 186, 0.8)",
           pointRadius: 1,
           barThickness: 50,
         },

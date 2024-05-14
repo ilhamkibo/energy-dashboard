@@ -65,12 +65,12 @@ export default function Sidebar() {
             link="/cost"
             Icon={FaMoneyBill}
           />
-          <CollectionLink
+          {/* <CollectionLink
             pathname={pathname}
             title="Appliances"
             link="/appliances"
             Icon={FaLightbulb}
-          />
+          /> */}
         </ul>
       </nav>
       <hr className="mt-2 mb-4" />

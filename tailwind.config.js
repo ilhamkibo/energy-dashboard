@@ -25,6 +25,7 @@ module.exports = {
         bgPrime: "#1b1d50",
         bgSecond: "#226e91",
         bgCard: "rgba(29,27,65,.6)",
+        dark: "#000",
       },
     },
   },

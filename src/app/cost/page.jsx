@@ -11,19 +11,21 @@ export default function Home() {
 
   const fetchApi = async (req, query) => {
     const logValues = await getLogResponse(req, query);
+    console.log("🚀 ~ fetchApi ~ logValues:", req, query);
     setDataLog(logValues);
     return logValues;
   };
 
-  useEffect(() => {
-    console.log(dataLog);
-  }, [dataLog]);
-
   return (
     <div className="flex-1 px-4 md:px-6 min-h-screen bg-gradient-to-tr from-color-bgPrime to-color-bgSecond">
       <Navbar fetchApi={fetchApi} />
-      <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-3 grid-cols-1 mt-2 md:mt-9 font-nunito_sans">
-        <CustomCard title="COST" Component={BarChart} />
+      <div className="mt-2  md:mt-9 font-nunito_sans">
+        <CustomCard
+          title="COST"
+          height={450}
+          Component={BarChart}
+          payload={dataLog}
+        />
       </div>
     </div>
   );
