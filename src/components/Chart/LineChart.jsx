@@ -68,7 +68,6 @@ export function LineChart({ height, payload }) {
     const dataset1Data = payload.data.map((entry) => entry.value1); // Ambil nilai avg_volt1 untuk dataset 1
     const dataset2Data = payload.data.map((entry) => entry.value2); // Ambil nilai avg_volt2 untuk dataset 2
     const dataset3Data = payload.data.map((entry) => entry.value3); // Ambil nilai avg_volt3 untuk dataset 3
-
     // Buat data baru berdasarkan data yang ada di payload
     newData = {
       labels: labels,
