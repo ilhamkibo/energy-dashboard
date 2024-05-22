@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { FiAlignJustify, FiGrid, FiFile, FiAward } from "react-icons/fi";
-import { FaLightbulb, FaMoneyBill } from "react-icons/fa";
+import { FiAlignJustify, FiGrid } from "react-icons/fi";
+import { FaMoneyBill } from "react-icons/fa";
+import { MdMonitorHeart } from "react-icons/md";
+import { BsFillTicketDetailedFill } from "react-icons/bs";
 import { usePathname } from "next/navigation";
 import CollectionLink from "./CollectionLink";
 import HookMqtt from "../Mqtt";
@@ -55,9 +57,15 @@ export default function Sidebar() {
           />
           <CollectionLink
             pathname={pathname}
+            title="Monitoring"
+            link="/monitoring"
+            Icon={MdMonitorHeart}
+          />
+          <CollectionLink
+            pathname={pathname}
             title="Details"
             link="/details"
-            Icon={FiFile}
+            Icon={BsFillTicketDetailedFill}
           />
           <CollectionLink
             pathname={pathname}
@@ -65,6 +73,7 @@ export default function Sidebar() {
             link="/cost"
             Icon={FaMoneyBill}
           />
+
           {/* <CollectionLink
             pathname={pathname}
             title="Appliances"
@@ -74,7 +83,7 @@ export default function Sidebar() {
         </ul>
       </nav>
       <hr className="mt-2 mb-4" />
-      <HookMqtt pathname={pathname} />
+      <HookMqtt pathname={pathname} renders={true} />
     </aside>
   );
 }

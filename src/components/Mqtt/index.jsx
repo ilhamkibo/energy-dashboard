@@ -1,22 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import mqtt from "mqtt";
 import Connection from "./Connection";
 import Subscriber from "./Subscriber";
 import CustomCard from "../Card";
+import { useMqtt } from "../context/MqttContext";
+import DataTable from "../Table";
 
 const HookMqtt = ({ pathname = "/", renders }) => {
-  const [client, setClient] = useState(null);
+  const {
+    client,
+    mqttConnect,
+    mqttDisconnect,
+    connectStatus,
+    setConnectStatus,
+  } = useMqtt();
   const [isSubed, setIsSub] = useState(false);
   const [payload, setPayload] = useState({});
-  const [connectStatus, setConnectStatus] = useState("Connect");
   const [highlightedCards, setHighlightedCards] = useState([]); // Array indeks CustomCard yang berubah warna
   const [prevRawData, setPrevRawData] = useState({}); // State untuk menyimpan nilai val.raw_data sebelumnya
-
-  const mqttConnect = (host, mqttOption) => {
-    setConnectStatus("Connecting");
-    setClient(mqtt.connect(host, mqttOption));
-  };
 
   useEffect(() => {
     if (client) {
@@ -33,11 +34,13 @@ const HookMqtt = ({ pathname = "/", renders }) => {
       client.on("reconnect", () => {
         setConnectStatus("Reconnecting");
       });
-
-      client.on("message", (topic, message) => {
-        const data = { topic, message: message.toString() };
-        setPayload(JSON.parse(data.message));
-      });
+      if (!renders) {
+        client.on("message", (topic, message) => {
+          const data = { topic, message: message.toString() };
+          setPayload(JSON.parse(data.message));
+          console.log("🚀 ~ client.on ~ data:", data, client.options.clientId);
+        });
+      }
     }
   }, [client]);
 
@@ -82,19 +85,6 @@ const HookMqtt = ({ pathname = "/", renders }) => {
     }
   }, [payload]);
 
-  const mqttDisconnect = () => {
-    if (client) {
-      try {
-        client.end(false, () => {
-          setConnectStatus("Connect");
-          console.log("disconnected successfully");
-        });
-      } catch (error) {
-        console.log("disconnect error:", error);
-      }
-    }
-  };
-
   const mqttSub = (subscription) => {
     if (client) {
       const { topic, qos } = subscription;
@@ -108,7 +98,7 @@ const HookMqtt = ({ pathname = "/", renders }) => {
     }
   };
 
-  if (renders) {
+  if (!renders) {
     return (
       <>
         <div className="hidden">
@@ -121,37 +111,14 @@ const HookMqtt = ({ pathname = "/", renders }) => {
           />
           <Subscriber sub={mqttSub} showUnsub={isSubed} />
         </div>
-        {payload &&
-          payload.data &&
-          payload.data.length > 0 &&
-          payload.data.map((item, index) => (
-            <div key={index}>
-              <div className="pl-4 py-2 border-b-2 border-color-bgPrime text-lg">
-                {item.name}
-              </div>
-              <div className="pl-4 py-2 text-center grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-2">
-                {item.values.map((val, idx) => (
-                  <CustomCard
-                    key={idx}
-                    title={val.name}
-                    Component={() => (
-                      <div>
-                        {val.raw_data !== undefined && val.raw_data !== null
-                          ? val.raw_data
-                          : "No data"}
-                      </div>
-                    )}
-                    description={`Units: ${val.desc ? val.desc : "-"}`}
-                    color={
-                      highlightedCards.includes(idx)
-                        ? "bg-yellow-200"
-                        : "bg-color-bgCard"
-                    } // Mengubah warna CustomCard sesuai index yang berubah
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
+        {payload && payload.data && payload.data.length > 0 && (
+          <CustomCard
+            title="Data Monitoring"
+            Component={() => <DataTable data={payload.data} />}
+            description=""
+            color="bg-color-bgCard"
+          />
+        )}
       </>
     );
   }
