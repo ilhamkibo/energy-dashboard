@@ -44,47 +44,6 @@ const HookMqtt = ({ pathname = "/", renders }) => {
     }
   }, [client]);
 
-  useEffect(() => {
-    // Update warna CustomCard saat payload berubah
-    if (payload && payload.data && payload.data.length > 0) {
-      let updatedHighlightedCards = [...highlightedCards]; // Salin array highlightedCards
-      payload.data.forEach((item) => {
-        if (item.values && item.values.length > 0) {
-          item.values.forEach((val, idx) => {
-            if (
-              val.raw_data !== undefined &&
-              val.raw_data !== null &&
-              prevRawData[val.name] !== val.raw_data
-            ) {
-              // Tambahkan indeks CustomCard yang berubah ke array
-              updatedHighlightedCards.push(idx);
-              setHighlightedCards(updatedHighlightedCards);
-
-              setTimeout(() => {
-                // Setelah 0.5 detik, hapus indeks CustomCard dari array
-                updatedHighlightedCards = updatedHighlightedCards.filter(
-                  (item, index) => index !== updatedHighlightedCards.length - 1
-                );
-                setHighlightedCards(updatedHighlightedCards);
-              }, 500);
-            }
-          });
-        }
-      });
-
-      // Simpan nilai val.raw_data ke state prevRawData
-      const newPrevRawData = { ...prevRawData };
-      payload.data.forEach((item) => {
-        if (item.values && item.values.length > 0) {
-          item.values.forEach((val) => {
-            newPrevRawData[val.name] = val.raw_data;
-          });
-        }
-      });
-      setPrevRawData(newPrevRawData);
-    }
-  }, [payload]);
-
   const mqttSub = (subscription) => {
     if (client) {
       const { topic, qos } = subscription;

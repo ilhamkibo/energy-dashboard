@@ -82,8 +82,12 @@ export default function Sidebar() {
           /> */}
         </ul>
       </nav>
-      <hr className="mt-2 mb-4" />
-      <HookMqtt pathname={pathname} renders={true} />
+      {pathname == "/monitoring" && (
+        <>
+          <hr className="mt-2 mb-4" />
+          <HookMqtt pathname={pathname} renders={true} />
+        </>
+      )}
     </aside>
   );
 }
