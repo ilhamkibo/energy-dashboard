@@ -5,7 +5,13 @@ import { usePathname } from "next/navigation";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function Navbar({ fetchApi, option = "volt", congo }) {
+export default function Navbar({
+  fetchApi,
+  option = "volt",
+  option2,
+  option3 = "0",
+  option4 = "volt1",
+}) {
   const pathname = usePathname();
   const [activeTab, setActiveTab] = useState(
     pathname.toString() == "/details" ? "today" : "kw_hour"
@@ -29,8 +35,8 @@ export default function Navbar({ fetchApi, option = "volt", congo }) {
 
   const handleClick = (tab) => {
     setActiveTab(tab);
-    if (congo) {
-      congo(tab);
+    if (option2) {
+      option2(tab);
     }
   };
 
@@ -52,15 +58,23 @@ export default function Navbar({ fetchApi, option = "volt", congo }) {
       if (pathname.toString() == "/details") {
         if (activeTab === "custom") {
           // Dapatkan tanggal, bulan, dan tahun dari objek Date
-
           if (endDate) {
             fetchApi(
               option,
-              `startDate=${formattedStartDate}&endDate=${formattedEndDate}`
+              `device=${
+                option3 == 0 ? "1" : option3 == "all" ? "1" : option3
+              }&startDate=${formattedStartDate}&endDate=${formattedEndDate}`
             );
           }
         } else {
-          fetchApi(option, `date=${activeTab}`);
+          if (option3 == "all" && (option == "volt" || option == "current")) {
+            fetchApi(option, `date=${activeTab}&device=${option4}`);
+          } else {
+            fetchApi(
+              option,
+              `date=${activeTab}&device=${option3 == 0 ? "1" : option3}`
+            );
+          }
         }
       } else {
         if (activeTab === "custom") {
@@ -75,7 +89,7 @@ export default function Navbar({ fetchApi, option = "volt", congo }) {
         }
       }
     }
-  }, [activeTab, option, endDate]);
+  }, [activeTab, option, endDate, option3, option4]);
 
   return (
     <div className="mt-8 font-nunito_sans">

@@ -74,7 +74,7 @@ const HookMqtt = ({ pathname = "/", renders }) => {
           <CustomCard
             title="Data Monitoring"
             Component={() => <DataTable data={payload.data} />}
-            description=""
+            description="MONITORING PANEL"
             color="bg-color-bgCard"
           />
         )}

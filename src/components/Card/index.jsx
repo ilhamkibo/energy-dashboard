@@ -32,10 +32,10 @@ const CustomCard = ({
           )}
         </div>
       )}
-      <div className="pl-4 py-2 text-center">
+      <div className="px-3 py-2 text-center">
         {Component && <Component height={height} payload={payload} />}
       </div>
-      <div className="pl-4 py-2 text-center border-t-2 border-color-bgPrime">
+      <div className="px-3 py-2 text-center border-t-2 border-color-bgPrime">
         {description}
       </div>
     </div>
