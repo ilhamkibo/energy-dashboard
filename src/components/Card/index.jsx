@@ -22,7 +22,7 @@ const CustomCard = ({
               {Number.parseFloat(payload.summary.total_kW).toFixed(3)}
             </div>
           </div>
-          {payload.summary.avg_kW && (
+          {payload.summary.avg_kW !== undefined && (
             <div className="flex flex-col justify-center items-center">
               <div className="text-lg font-light">Average:</div>
               <div className="text-2xl font-bold">

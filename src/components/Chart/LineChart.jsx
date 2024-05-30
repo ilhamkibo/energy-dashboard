@@ -62,7 +62,11 @@ export function LineChart({ height, payload }) {
 
   // Pastikan payload memiliki data yang dibutuhkan
   let newData;
-  if (payload.label[0] == "Volt 1" || payload.label[0] == "Current 1") {
+  if (
+    payload.label[0] == "Volt 1" ||
+    payload.label[0] == "Current 1" ||
+    payload.label[0] == "Device 1"
+  ) {
     // Ekstrak tanggal dan nilai volt rata-rata dari payload
     const labels = payload.data.map((entry) => entry.timestamp); // Ambil tanggal sebagai label
     const dataset1Data = payload.data.map((entry) => entry.value1); // Ambil nilai avg_volt1 untuk dataset 1

@@ -30,6 +30,11 @@ export default function Home() {
   };
 
   const handleClick = (tab) => {
+    if (tab == "volt") {
+      setSelectedDeviceOption("volt1");
+    } else if (tab == "current") {
+      setSelectedDeviceOption("amp1");
+    }
     setActiveTab(tab);
   };
 
@@ -103,9 +108,9 @@ export default function Home() {
                     </>
                   ) : (
                     <>
-                      <option value="current1">Current 1</option>
-                      <option value="current2">Current 2</option>
-                      <option value="current3">Current 3</option>
+                      <option value="amp1">Current 1</option>
+                      <option value="amp2">Current 2</option>
+                      <option value="amp3">Current 3</option>
                     </>
                   )}
                 </select>

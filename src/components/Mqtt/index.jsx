@@ -38,7 +38,6 @@ const HookMqtt = ({ pathname = "/", renders }) => {
         client.on("message", (topic, message) => {
           const data = { topic, message: message.toString() };
           setPayload(JSON.parse(data.message));
-          console.log("🚀 ~ client.on ~ data:", data, client.options.clientId);
         });
       }
     }

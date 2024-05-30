@@ -59,12 +59,19 @@ export default function Navbar({
         if (activeTab === "custom") {
           // Dapatkan tanggal, bulan, dan tahun dari objek Date
           if (endDate) {
-            fetchApi(
-              option,
-              `device=${
-                option3 == 0 ? "1" : option3 == "all" ? "1" : option3
-              }&startDate=${formattedStartDate}&endDate=${formattedEndDate}`
-            );
+            if (option3 == "all" && (option == "volt" || option == "current")) {
+              fetchApi(
+                option,
+                `startDate=${formattedStartDate}&endDate=${formattedEndDate}&device=${option4}`
+              );
+            } else {
+              fetchApi(
+                option,
+                `startDate=${formattedStartDate}&endDate=${formattedEndDate}&device=${
+                  option3 == 0 ? "1" : option3
+                }`
+              );
+            }
           }
         } else {
           if (option3 == "all" && (option == "volt" || option == "current")) {
