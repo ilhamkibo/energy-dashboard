@@ -1,4 +1,5 @@
 import CustomCard from "@/components/Card";
+import { DonutChart } from "@/components/Chart/DonutChart";
 import { LineChart } from "@/components/Chart/LineChart";
 import HookMqtt from "@/components/Mqtt";
 import Navbar from "@/components/Navbar";
@@ -12,7 +13,7 @@ export default function Home() {
       <div className="flex flex-row flex-wrap gap-2 mt-2 pb-4 md:mt-9 font-nunito_sans">
         <CustomCard
           title="DETAILS"
-          Component={LineChart}
+          Component={DonutChart}
           height={100}
           description="muehehe"
         />

@@ -16,22 +16,42 @@ const CustomCard = ({
       </div>
       {payload && payload.summary && (
         <div className="p-4 flex flex-row justify-around">
-          <div className="flex flex-col justify-center items-center">
-            <div className="text-lg font-light">Total:</div>
-            <div className="text-2xl font-bold">
-              {Number.parseFloat(payload.summary.total_kW).toFixed(3)}
-            </div>
-          </div>
-          {payload.summary.avg_kW !== undefined && (
-            <div className="flex flex-col justify-center items-center">
-              <div className="text-lg font-light">Average:</div>
-              <div className="text-2xl font-bold">
-                {Number.parseFloat(payload.summary.avg_kW).toFixed(3)}
-              </div>
-            </div>
+          {payload.summary.total.map(
+            (total, index) =>
+              total !== null && (
+                <div
+                  key={`total-${index}`}
+                  className="flex flex-col justify-center items-center"
+                >
+                  <div className="text-lg font-light">
+                    Total {payload.label[index]}:
+                  </div>
+                  <div className="text-2xl font-bold">
+                    {Number.parseFloat(total).toFixed(3)}
+                  </div>
+                </div>
+              )
           )}
+          {payload.summary.average &&
+            payload.summary.average.map(
+              (average, index) =>
+                average !== null && (
+                  <div
+                    key={`average-${index}`}
+                    className="flex flex-col justify-center items-center"
+                  >
+                    <div className="text-lg font-light">
+                      Average {payload.label[index]}:
+                    </div>
+                    <div className="text-2xl font-bold">
+                      {Number.parseFloat(average).toFixed(3)}
+                    </div>
+                  </div>
+                )
+            )}
         </div>
       )}
+
       <div className="px-3 py-2 text-center">
         {Component && <Component height={height} payload={payload} />}
       </div>

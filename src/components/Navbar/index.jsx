@@ -83,17 +83,20 @@ export default function Navbar({
             );
           }
         }
-      } else {
+      } else if (pathname.toString() == "/cost") {
         if (activeTab === "custom") {
           if (endDate) {
             fetchApi(
               "kw_custom",
-              `startDate=${formattedStartDate}&endDate=${formattedEndDate}`
+              `startDate=${formattedStartDate}&endDate=${formattedEndDate}&device=${
+                option3 == 0 ? "1" : option3
+              }`
             );
           }
         } else {
-          fetchApi(activeTab);
+          fetchApi(activeTab, `device=${option3 == 0 ? "1" : option3}`);
         }
+      } else {
       }
     }
   }, [activeTab, option, endDate, option3, option4]);
@@ -142,15 +145,17 @@ export default function Navbar({
                 setShowCustomDate(false);
               }}
             />
-            <TabButton
-              label="Custom"
-              active={activeTab === "custom" || activeTab === "kw_custom"}
-              onClick={() => {
-                // Menampilkan tampilan tanggal kustom ketika tombol "Custom" diklik
-                setShowCustomDate(true);
-                handleClick("custom");
-              }}
-            />
+            {pathname != "/" && (
+              <TabButton
+                label="Custom"
+                active={activeTab === "custom" || activeTab === "kw_custom"}
+                onClick={() => {
+                  // Menampilkan tampilan tanggal kustom ketika tombol "Custom" diklik
+                  setShowCustomDate(true);
+                  handleClick("custom");
+                }}
+              />
+            )}
           </ul>
           {showCustomDate ? (
             <div className="text-color-dark md:self-auto self-end md:py-0 py-4 md:mx-1">
