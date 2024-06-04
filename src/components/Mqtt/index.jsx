@@ -16,8 +16,6 @@ const HookMqtt = ({ pathname = "/", renders }) => {
   } = useMqtt();
   const [isSubed, setIsSub] = useState(false);
   const [payload, setPayload] = useState({});
-  const [highlightedCards, setHighlightedCards] = useState([]); // Array indeks CustomCard yang berubah warna
-  const [prevRawData, setPrevRawData] = useState({}); // State untuk menyimpan nilai val.raw_data sebelumnya
 
   useEffect(() => {
     if (client) {
@@ -34,6 +32,7 @@ const HookMqtt = ({ pathname = "/", renders }) => {
       client.on("reconnect", () => {
         setConnectStatus("Reconnecting");
       });
+
       if (!renders) {
         client.on("message", (topic, message) => {
           const data = { topic, message: message.toString() };
@@ -69,7 +68,14 @@ const HookMqtt = ({ pathname = "/", renders }) => {
           />
           <Subscriber sub={mqttSub} showUnsub={isSubed} />
         </div>
-        {payload && payload.data && payload.data.length > 0 && (
+        {payload && payload.data && payload.data.length > 0 ? (
+          <CustomCard
+            title="Data Monitoring"
+            Component={() => <DataTable data={payload.data} />}
+            description="MONITORING PANEL"
+            color="bg-color-bgCard"
+          />
+        ) : (
           <CustomCard
             title="Data Monitoring"
             Component={() => <DataTable data={payload.data} />}

@@ -8,7 +8,7 @@ const CustomCard = ({
 }) => {
   return (
     <div
-      className={`rounded-md my-4 min-w-64 transition-colors duration-500 ${color}`}
+      className={`rounded-md mt-4 min-w-64 transition-colors duration-500 ${color}`}
       style={{ transitionProperty: "background-color" }}
     >
       <div className="pl-4 py-2 border-b-2 border-color-bgPrime text-lg">
@@ -16,23 +16,24 @@ const CustomCard = ({
       </div>
       {payload && payload.summary && (
         <div className="p-4 flex flex-row justify-around">
-          {payload.summary.total.map(
-            (total, index) =>
-              total !== null && (
-                <div
-                  key={`total-${index}`}
-                  className="flex flex-col justify-center items-center"
-                >
-                  <div className="text-lg font-light">
-                    Total {payload.label[index]}:
+          {Array.isArray(payload.summary.total) &&
+            payload.summary.total.map(
+              (total, index) =>
+                total !== null && (
+                  <div
+                    key={`total-${index}`}
+                    className="flex flex-col justify-center items-center"
+                  >
+                    <div className="text-lg font-light">
+                      Total {payload.label[index]}:
+                    </div>
+                    <div className="text-2xl font-bold">
+                      {Number.parseFloat(total).toFixed(3)}
+                    </div>
                   </div>
-                  <div className="text-2xl font-bold">
-                    {Number.parseFloat(total).toFixed(3)}
-                  </div>
-                </div>
-              )
-          )}
-          {payload.summary.average &&
+                )
+            )}
+          {Array.isArray(payload.summary.average) &&
             payload.summary.average.map(
               (average, index) =>
                 average !== null && (
@@ -52,12 +53,14 @@ const CustomCard = ({
         </div>
       )}
 
-      <div className="px-3 py-2 text-center">
+      <div className="px-3 pt-2 pb-5 text-center">
         {Component && <Component height={height} payload={payload} />}
       </div>
-      <div className="px-3 py-2 text-center border-t-2 border-color-bgPrime">
-        {description}
-      </div>
+      {description && (
+        <div className="px-3 py-2 text-center border-t-2 border-color-bgPrime">
+          {description}
+        </div>
+      )}
     </div>
   );
 };

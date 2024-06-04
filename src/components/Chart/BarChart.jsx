@@ -11,7 +11,6 @@ import {
 import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -44,6 +43,7 @@ export function BarChart({ height, payload }) {
   const pathname = usePathname();
   let options = {
     responsive: true,
+    // indexAxis: "y",
     plugins: {
       legend: {
         position: "top",

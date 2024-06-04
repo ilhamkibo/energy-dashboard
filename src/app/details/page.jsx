@@ -4,7 +4,7 @@ import { BarChart } from "@/components/Chart/BarChart";
 import { LineChart } from "@/components/Chart/LineChart";
 import Navbar from "@/components/Navbar";
 import { getLogResponse } from "@/libs/api-libs";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("volt");
@@ -22,8 +22,7 @@ export default function Home() {
   };
 
   const fetchApi = async (req, query) => {
-    console.log("🚀 ~ fetchApi ~ req:", req);
-    console.log("🚀 ~ fetchApi ~ query:", query);
+    console.log("🚀 ~ fetchApi ~ req, query:", req, query);
     const logValues = await getLogResponse(req, query);
     setDataLog(logValues);
     return logValues;

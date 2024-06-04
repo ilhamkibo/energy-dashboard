@@ -97,6 +97,18 @@ export default function Navbar({
           fetchApi(activeTab, `device=${option3 == 0 ? "1" : option3}`);
         }
       } else {
+        if (activeTab === "custom") {
+          if (endDate) {
+            fetchApi(
+              "kw_custom",
+              `startDate=${formattedStartDate}&endDate=${formattedEndDate}&device=${
+                option3 == 0 ? "1" : option3
+              }`
+            );
+          }
+        } else {
+          fetchApi("dashboard", `date=${activeTab}`);
+        }
       }
     }
   }, [activeTab, option, endDate, option3, option4]);
@@ -113,10 +125,10 @@ export default function Navbar({
               label="Today"
               active={activeTab === "today" || activeTab === "kw_hour"}
               onClick={() => {
-                if (pathname.toString() === "/details") {
-                  handleClick("today");
-                } else {
+                if (pathname.toString() === "/cost") {
                   handleClick("kw_hour");
+                } else {
+                  handleClick("today");
                 }
                 setShowCustomDate(false);
               }}
@@ -125,10 +137,10 @@ export default function Navbar({
               label="Month"
               active={activeTab === "month" || activeTab === "kw_day"}
               onClick={() => {
-                if (pathname.toString() === "/details") {
-                  handleClick("month");
-                } else {
+                if (pathname.toString() === "/cost") {
                   handleClick("kw_day");
+                } else {
+                  handleClick("month");
                 }
                 setShowCustomDate(false);
               }}
@@ -137,25 +149,23 @@ export default function Navbar({
               label="Year"
               active={activeTab === "year" || activeTab === "kw_month"}
               onClick={() => {
-                if (pathname.toString() === "/details") {
-                  handleClick("year");
-                } else {
+                if (pathname.toString() === "/cost") {
                   handleClick("kw_month");
+                } else {
+                  handleClick("year");
                 }
                 setShowCustomDate(false);
               }}
             />
-            {pathname != "/" && (
-              <TabButton
-                label="Custom"
-                active={activeTab === "custom" || activeTab === "kw_custom"}
-                onClick={() => {
-                  // Menampilkan tampilan tanggal kustom ketika tombol "Custom" diklik
-                  setShowCustomDate(true);
-                  handleClick("custom");
-                }}
-              />
-            )}
+            <TabButton
+              label="Custom"
+              active={activeTab === "custom" || activeTab === "kw_custom"}
+              onClick={() => {
+                // Menampilkan tampilan tanggal kustom ketika tombol "Custom" diklik
+                setShowCustomDate(true);
+                handleClick("custom");
+              }}
+            />
           </ul>
           {showCustomDate ? (
             <div className="text-color-dark md:self-auto self-end md:py-0 py-4 md:mx-1">

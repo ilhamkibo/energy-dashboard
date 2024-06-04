@@ -1,6 +1,6 @@
 import React from "react";
 
-const DataTable = ({ data }) => {
+const DataTable = ({ data = [] }) => {
   const renderTemperatureTable = (temperatureData) => {
     return (
       <div className="overflow-x-auto my-2 p-2">
@@ -13,15 +13,23 @@ const DataTable = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {temperatureData.map((group, index) => (
-              <tr key={index}>
-                <td className="py-2 px-2 border-b">{index + 1}</td>
-                <td className="py-2 px-2 border-b">{group.name}</td>
-                <td className="py-2 px-2 border-b">
-                  {group.values[0]?.raw_data ?? "No data"}
+            {temperatureData && temperatureData.length > 0 ? (
+              temperatureData.map((group, index) => (
+                <tr key={index}>
+                  <td className="py-2 px-2 border-b">{index + 1}</td>
+                  <td className="py-2 px-2 border-b">{group.name}</td>
+                  <td className="py-2 px-2 border-b">
+                    {group.values[0]?.raw_data ?? "No data"}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3" className="py-2 px-2 border-b">
+                  Waiting for the data...
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
@@ -48,48 +56,56 @@ const DataTable = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {powerMeterData.map((group, index) => (
-              <tr key={index}>
-                <td className="py-2 px-2 border-b">{index + 1}</td>
-                <td className="py-2 px-2 border-b">{group.name}</td>
-                <td className="py-2 px-2 border-b">
-                  {group.values.find((val) => val.name === "KVA")?.raw_data ??
-                    "No data"}
-                </td>
-                <td className="py-2 px-2 border-b">
-                  {group.values.find((val) => val.name === "KW")?.raw_data ??
-                    "No data"}
-                </td>
-                <td className="py-2 px-2 border-b">
-                  {group.values.find((val) => val.name === "T Current")
-                    ?.raw_data ?? "No data"}
-                </td>
-                <td className="py-2 px-2 border-b">
-                  {group.values.find((val) => val.name === "S Current")
-                    ?.raw_data ?? "No data"}
-                </td>
-                <td className="py-2 px-2 border-b">
-                  {group.values.find((val) => val.name === "R Current")
-                    ?.raw_data ?? "No data"}
-                </td>
-                <td className="py-2 px-2 border-b">
-                  {group.values.find((val) => val.name === "Frequency")
-                    ?.raw_data ?? "No data"}
-                </td>
-                <td className="py-2 px-2 border-b">
-                  {group.values.find((val) => val.name === "V3")?.raw_data ??
-                    "No data"}
-                </td>
-                <td className="py-2 px-2 border-b">
-                  {group.values.find((val) => val.name === "V2")?.raw_data ??
-                    "No data"}
-                </td>
-                <td className="py-2 px-2 border-b">
-                  {group.values.find((val) => val.name === "V1")?.raw_data ??
-                    "No data"}
+            {powerMeterData && powerMeterData.length > 0 ? (
+              powerMeterData.map((group, index) => (
+                <tr key={index}>
+                  <td className="py-2 px-2 border-b">{index + 1}</td>
+                  <td className="py-2 px-2 border-b">{group.name}</td>
+                  <td className="py-2 px-2 border-b">
+                    {group.values.find((val) => val.name === "KVA")?.raw_data ??
+                      "No data"}
+                  </td>
+                  <td className="py-2 px-2 border-b">
+                    {group.values.find((val) => val.name === "KW")?.raw_data ??
+                      "No data"}
+                  </td>
+                  <td className="py-2 px-2 border-b">
+                    {group.values.find((val) => val.name === "T Current")
+                      ?.raw_data ?? "No data"}
+                  </td>
+                  <td className="py-2 px-2 border-b">
+                    {group.values.find((val) => val.name === "S Current")
+                      ?.raw_data ?? "No data"}
+                  </td>
+                  <td className="py-2 px-2 border-b">
+                    {group.values.find((val) => val.name === "R Current")
+                      ?.raw_data ?? "No data"}
+                  </td>
+                  <td className="py-2 px-2 border-b">
+                    {group.values.find((val) => val.name === "Frequency")
+                      ?.raw_data ?? "No data"}
+                  </td>
+                  <td className="py-2 px-2 border-b">
+                    {group.values.find((val) => val.name === "V3")?.raw_data ??
+                      "No data"}
+                  </td>
+                  <td className="py-2 px-2 border-b">
+                    {group.values.find((val) => val.name === "V2")?.raw_data ??
+                      "No data"}
+                  </td>
+                  <td className="py-2 px-2 border-b">
+                    {group.values.find((val) => val.name === "V1")?.raw_data ??
+                      "No data"}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="11" className="py-2 px-2 border-b">
+                  Waiting for the data...
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
